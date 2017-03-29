@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src='jquery.js'></script>
+	<script type="text/javascript" src='jquery-ui.min.js'></script>
+	<script type="text/javascript" src='jquery-ui.theme.min.css'></script>
+ 	<link rel="stylesheet" type="text/css" href="jquery-ui.min.css">
+ 	<style type="text/css">
+ 		 * {
+
+ 		 	font-size: 16px;
+ 		 }
+ 		 #login {
+ 		 	margin-left: 70px;
+ 		 }
+ 		 #reg_log {
+ 		 	display: block;
+			margin: 100px auto;
+ 		 }
+
+ 	</style>
+
+</head>
+<body>
+	<div id="dialog" title="请先登录">
+		<form action="">
+			<p>账号：<input type="text" id='loginName'></p>
+			<p>密码：<input type="text" id='passWord'></p>
+			<p>昵称：<input type="text" id='nickName'></p>
+			<input type="button" value="登录" id="login">
+			<input type="button" value="注册" id="register">
+		</form>
+	</div>
+	<input type="button" value="注册/登录" id="reg_log">
+</body>
+<script type="text/javascript">
+	$('#dialog').dialog({
+		autoOpen:false,
+		height:250,
+		width:300,
+		modal:true,
+		dialogClass:'ui-dialog-buttonpane'
+	});
+	$('#reg_log').button().click(function() {
+		$('#dialog').dialog('open');
+	});
+	$('#login,#register').button();
+</script>
+<script type="text/javascript">
+
+	$('#register').click(function(){
+			var $loginName = $('#loginName').val();
+	var $passWord = $('#passWord').val();
+	var $nickName = $('#nickName').val();
+	alert($loginName);
+		$.ajax({
+		url: 'login_check.php',
+		type: 'POST',
+		dataType: 'text',
+		data: 'loginName='+$loginName+'&passWord='+$passWord+'&nickName='+$nickName,
+		//注意字符串的链接！！简单的错误不要再犯
+		success:function(msg){
+			console.log('result:'+msg)
+		}
+		})
+	})
+/**
+function createXhr(){
+	if(window.XMLHttpRequest){
+		return new XMLHttpRequest()
+	}else{
+		return new ActiveXObject('Microsoft.XMLHttp');
+	}
+};
+
+	$(function(){
+		$('register')clikc(function(){
+			var $loginName = $('#loginName').val();
+			var $passWord = $('#passWord').val();
+			var $nickName = $('#nickName').val();
+			var xhr = new createXhr();
+			var url = 'login_check.php';
+			xhr.open('post',url,true);
+			xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+			xhr.send('loginName=$loginName&passWord=$passWord&nickName=$nickName')
+	})
+	**/
+</script>
+</html>
